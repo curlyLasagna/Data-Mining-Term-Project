@@ -6,7 +6,7 @@
 #show: ieee.with(
   title: [Clustering Analysis of Screen Time and Wellness (Proposal)],
   abstract: [
-    We explore the impact of device usage on personal wellness by leveraging a dataset that records device hours and technology habits alongside wellness metrics. Taking inspiration from customer segmentation in marketing, our approach segments users based on shared digital behaviors and wellness indicators to recommend personalized strategies for improving well-being using a trained classifier model.
+We examine how device usage affects personal wellness using a dataset that tracks hours spent on devices, technology habits, and related wellness metrics. Drawing from customer segmentation techniques in marketing, our approach groups users with similar digital behaviors and wellness patterns. Using a trained classifier model, we then recommend personalized strategies to help individuals enhance their well-being.
   ],
   authors: (
     (
@@ -20,9 +20,8 @@
   bibliography: bibliography("refs.bib"),
   figure-supplement: [Fig.],
 )
-
 = Introduction
-Increased technology use has been associated with negative effects on mental health and general well-being. This project analyzes patterns of technology use across different devices (phones, laptops, tablets, and televisions) and various purposes (social media, work, entertainment, gaming), relating them to wellness metrics such as sleep quality, mood, stress, mental health scores, and additional lifestyle indicators. After analyzing the data, we will train a clustering model to classify users and suggest strategies for healthier technology use.
+The rising use of technology has been linked to negative impacts on mental health and overall well-being. This proposal examines how people use technology across various devices such as phones, laptops, tablets, and televisions, and for different activities including social media, work, entertainment, and gaming. We plan to explore how these usage patterns relate to wellness metrics such as sleep quality, mood, stress levels, mental health assessments, and other lifestyle factors. Using this data, we want to identify user segments and train a classification model to recommend personalized strategies that promote healthier technology habits, taking inspiration from user segmentation on the field of marketing.
 
 = Dataset
 
@@ -30,26 +29,26 @@ The dataset that we'll be working with contains 5,000 rows and is publicly avail
 
 
 = Related Works
-#pcite(<analytics2040042>) compared several state-of-the-art clustering algorithms—including K-means, Gaussian Mixture Models (GMM), DBSCAN, agglomerative clustering, and BIRCH—for customer segmentation in the UK retail market. Their results showed that GMM, paired with PCA for dimensionality reduction, outperformed other approaches by achieving a Silhouette Score of 0.80. A score close to 1 indicates more clearly defined clusters.
+#pcite(<analytics2040042>) compared several leading clustering algorithms, including K-means, Gaussian Mixture Models (GMM), DBSCAN, agglomerative clustering, and BIRCH, for customer segmentation in the UK retail market. Their findings indicated that GMM, when used alongside PCA for dimensionality reduction, outperformed other methods by achieving a Silhouette Score of 0.80, whereas K-means, BIRCH, and agglomerative algorithms all scored 0.64. A score closer to 1 indicates that the clusters are more defined.
 
-Another study by #pcite(<10921704>) evaluated clustering algorithms not only using the Silhouette Score but also the Davies-Bouldin Index. A high Davies-Bouldin Index signifies that clusters are neither compact nor well-separated. This study noted that Gaussian Mixture Models face challenges when processing high-dimensional or large-scale data. They concluded that K-Means++ performed the best.
+Another study by #pcite(<10921704>) evaluated clustering performance using both the Silhouette Score and the Davies-Bouldin Index. A higher Davies-Bouldin Index implies that clusters are less compact and not well separated. This research observed that Gaussian Mixture Models encounter difficulties when handling high-dimensional or large-scale datasets, while K-means++ produced more reliable results even in the presence of high dimensionality and noise.
 
-Research on the relationship between mental health and technology use, such as the paper by #pcite(<Lee2024DigitalWellbeing>), found that active digital use is positively correlated with symptoms of anxiety and that internet access is associated with increased levels of depression and anxiety, particularly among younger populations. However, the paper noted that a causal link between technology use and mental health remains inconclusive.
+In the context of mental health, research such as this study by #pcite(<Lee2024DigitalWellbeing>) explored the relationship between technology use and psychological well-being. The study found that active digital engagement is positively associated with anxiety symptoms, and that access to the internet correlates with higher levels of depression and anxiety, especially among younger individuals. Nevertheless, the paper emphasized that there is no clear causal link established between technology use and mental health outcomes.
 
 = Methods
 
-We propose a clustering and classification approach for user segmentation. Gaussian Mixture Models (GMMs), which support soft clustering, will be employed to identify overlapping user clusters—an advantage over K-Means, which yields hard clusters—since individuals may exhibit multiple overlapping behaviors in their technology use.
+We propose an approach that combines clustering and classification for user segmentation. To capture overlapping user groups, we will use Gaussian Mixture Models (GMMs), which offer soft clustering as opposed to K-Means, which provides hard clusters. This is important because individuals often display multiple, overlapping behaviors in their technology use.
 
-Following the methodology from #pcite(<analytics2040042>) and considering the comments from #pcite(<10921704>) regarding GMMs and high dimensionality, we will reduce the dimensions of our dataset using PCA. To begin, we will employ the elbow method to determine the optimal number of principal components, rather than retaining an arbitrary number of dimensions.
+Based on the methodology from #pcite(<analytics2040042>) and the insights from #pcite(<10921704>) regarding GMMs and high dimensionality, we will apply Principal Component Analysis (PCA) to reduce the dimensionality of our dataset before clustering. We will start by using the elbow method to identify the optimal number of principal components, with the help of the scree plot for visualization.
 
-Before fitting our clustering algorithm, we will determine the optimal number of Gaussian components by testing a range of component counts and analyzing the gradient of the Bayesian Information Criterion (BIC) #pcite(<Lavorini_2018>). Once clusters are identified, we will manually label each cluster based on shared characteristics.
+Before running the clustering algorithm, we will determine the optimal number of Gaussian components by evaluating a range of components and examining changes in the Bayesian Information Criterion (BIC) as  #pcite(<Lavorini_2018>) showcased in the author's Medium blog. Once the clusters are formed, we will assign labels to each group based on shared characteristics.
 
-After identifying our clusters, we will train a supervised classification model using the resulting cluster labels with a 70/30 train-test split.
+After clustering, we will train a supervised classification model using the cluster labels, with a 70/30 split for training and testing the data.
 
 == Toolset
 
-We will use Python for its robust ecosystem. Polars will serve as our dataframe library for data manipulation, sklearn for our algorithms, and Altair for interactive visualization. Marimo will be used as our interactive prototyping notebook, and Streamlit for developing a prototype frontend once we are satisfied with the model. To ensure reproducibility, dependencies will be managed with uv and Nix.
+Our main tool of choice will be Python for its simple syntax and massive collection of popular packages from PyPi. Polars will serve as our dataframe library for data manipulation, a Rust alternative to Pandas, sklearn for the algorithms mentioned, and Altair for interactive visualization. Marimo will be used as our interactive prototyping notebook, and Streamlit for developing a prototype frontend once we are satisfied with the model. To ensure reproducibility, dependencies will be managed with uv, a Rust alternative to pip, and #link("https://devenv.sh/")[devenv].
 
 = Expected Outcomes
 
-We expect GMMs to reveal meaningful user clusters that reflect distinct profiles of technology use and wellness. Our framework will suggest targeted strategies to enable individuals to use technology more mindfully, leading to improved well-being. The methodology and findings may further inform the development of personalized digital wellness tools and advice.
+We expect GMMs to reveal meaningful user clusters to show distinct profiles of technology use and wellness. Coming up with appropriate labels for these clusters will require thorough analysis and interpretation. Picking the proper strategies to enable individuals to use technology more mindfully, leading to improved well-being will be quite the challenge as usage patterns may be much more complex than expected. The methodology and findings may further inform the development of personalized digital wellness tools and advice.

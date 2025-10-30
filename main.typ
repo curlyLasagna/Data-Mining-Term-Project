@@ -52,3 +52,54 @@ Our main tool of choice will be Python for its simple syntax and massive collect
 = Expected Outcomes
 
 We expect GMMs to reveal meaningful user clusters to show distinct profiles of technology use and wellness. Coming up with appropriate labels for these clusters will require thorough analysis and interpretation. Picking the proper strategies to enable individuals to use technology more mindfully, leading to improved well-being will be quite the challenge as usage patterns may be much more complex than expected. The methodology and findings may further inform the development of personalized digital wellness tools and advice.
+
+= Midterm Progress
+
+This section reports on any progress made between the submission of this proposal and the due date of this progress report. We will also discuss our plans for the next 45 days and expectations.
+
+== Exploratory Data Analysis
+
+To gather insights about the dataset, we want to generate visualizations about the dataset. We've generated a histogram of each continuous feature with their respective kernel density estimate (KDE) to determine the skewness of each feature.
+
+We've also generated a correlation matrix to analyze any relationships that each pair of features might have.
+
+#figure(
+    image("./heatmap.png"),
+    caption: [Correlation Matrix of the dataset]
+)
+
+== Data Preprocessing
+
+=== Encoding
+
+Before training the model, we first have to encode any categorical features within our dataset.
+
+
+
+=== Standardization
+
+PCA is highly sensitive to the scale of the features. For continuous features, we want to standardize the data to a standard scale.
+
+=== Normal Distribution
+
+To ensure
+
+== Changes in the toolset and methods
+
+After having worked with `sklearn`, we've decided to forego the Pandas alternative, Polars in favor of Pandas since `sklearn` functions do not natively support Polars dataframe as input. Otherwise, the technology used will stay as is.
+
+After generating clusters,
+
+== Supervised Training
+
+In our proposal, we didn't specify which supervised model we were going to implement, but
+
+#place(
+    top,
+    float: true,
+    scope: "parent",
+    figure(
+        image("./mermaid-diagram-2025-10-29-152940.png"),
+        caption:[Gantt chart for the next 45 days]
+    )
+)

@@ -4,7 +4,7 @@
 #set cite(form: "prose", style: "harvard-cite-them-right")
 #show link: underline
 #show: ieee.with(
-  title: [Clustering Analysis of Screen Time and Wellness (Proposal)],
+  title: [Clustering Analysis of Screen Time and Wellness],
   abstract: [
 We examine how device usage affects personal wellness using a dataset that tracks hours spent on devices, technology habits, and related wellness metrics. Drawing from customer segmentation techniques in marketing, our approach groups users with similar digital behaviors and wellness patterns. Using a trained classifier model, we then recommend personalized strategies to help individuals enhance their well-being.
   ],
@@ -37,69 +37,32 @@ In the context of mental health, research such as this study by #pcite(<Lee2024D
 
 = Methods
 
-We propose an approach that combines clustering and classification for user segmentation. To capture overlapping user groups, we will use Gaussian Mixture Models (GMMs), which offer soft clustering as opposed to K-Means, which provides hard clusters. This is important because individuals often display multiple, overlapping behaviors in their technology use.
+== Clustering Method of Choice
+We propose an approach that combines clustering and classification for user segmentation. To capture overlapping user groups, we will be utilizing Gaussian Mixture Models (GMMs), which offer soft clustering as opposed to K-Means, which provides hard clusters. This is important because individuals often display multiple, overlapping behaviors in their technology use.
 
-Based on the methodology from #pcite(<analytics2040042>) and the insights from #pcite(<10921704>) regarding GMMs and high dimensionality, we will apply Principal Component Analysis (PCA) to reduce the dimensionality of our dataset before clustering. We will start by using the elbow method to identify the optimal number of principal components, with the help of the scree plot for visualization.
+== Dimensionality Reduction
+Based on the methodology from #pcite(<analytics2040042>) and the insights from #pcite(<10921704>) regarding GMMs and high dimensionality, we will apply Principal Component Analysis (PCA) to reduce the dimensionality of our dataset before clustering. 
 
-Before running the clustering algorithm, we will determine the optimal number of Gaussian components by evaluating a range of components and examining changes in the Bayesian Information Criterion (BIC) as  #pcite(<Lavorini_2018>) showcased in the author's Medium blog. Once the clusters are formed, we will assign labels to each group based on shared characteristics.
+To find the optimal number of components to keep during PCA, we will plot the value of cumulative explained variance per components from a range of 1 to 20, with a goal of choosing the number of components that keeps more than 90% of variance. 
 
-After clustering, we will train a supervised classification model using the cluster labels, with a 70/30 split for training and testing the data.
+Before running the clustering algorithm, we will determine the optimal number of Gaussian components by evaluating a range of components and examining changes in the Bayesian Information Criterion (BIC) as  #pcite(<Lavorini_2018>) showcased in the author's Medium blog. Once the clusters are formed from their probabilities, we will assign labels to each group based on observed characteristics that these data points share. This observation
+
+After we obtain the probabilities from clustering, we will assign a threshold that assigns that datapoint to 1 or more labels. Our initial threshold is at 40%, so a data point could have at most 2 labels.  
+
+Once the preprocessed dataset has each row labeled, we will split the dataset for test train split via holdout and train a multi-label classifier model to predict the label(s)  
 
 == Toolset
 
-Our main tool of choice will be Python for its simple syntax and massive collection of popular packages from PyPi. Polars will serve as our dataframe library for data manipulation, a Rust alternative to Pandas, sklearn for the algorithms mentioned, and Altair for interactive visualization. Marimo will be used as our interactive prototyping notebook, and Streamlit for developing a prototype frontend once we are satisfied with the model. To ensure reproducibility, dependencies will be managed with uv, a Rust alternative to pip, and #link("https://devenv.sh/")[devenv].
+Our primary programming language will be Python, chosen for its straightforward syntax and extensive ecosystem of packages available via PyPI. For data manipulation, we will use Pandas; for machine learning algorithms, scikit-learn; and for interactive visualizations, Altair. Marimo will serve as our interactive prototyping notebook, while Streamlit will be used to develop a prototype frontend once the model is ready. To ensure reproducibility, we will manage dependencies with uv (a Rust-based alternative to pip) and #link("https://devenv.sh/")[devenv].
 
-= Expected Outcomes
+= Analysis
 
-We expect GMMs to reveal meaningful user clusters to show distinct profiles of technology use and wellness. Coming up with appropriate labels for these clusters will require thorough analysis and interpretation. Picking the proper strategies to enable individuals to use technology more mindfully, leading to improved well-being will be quite the challenge as usage patterns may be much more complex than expected. The methodology and findings may further inform the development of personalized digital wellness tools and advice.
+#image("cum_var.png")
 
-= Midterm Progress
+Our results show that 15 components is the lowest value that keeps more than 90% of variance at 91.5%.
 
-This section reports on any progress made between the submission of this proposal and the due date of this progress report. We will also discuss our plans for the next 45 days and expectations.
+After obtaining the probabilities generated by  
+We wanted to set a threshold to set 
+This tells us that the majority of users are not overlapping. 
+We'll set the probability threshold at 40% 
 
-== Exploratory Data Analysis
-
-To gather insights about the dataset, we want to generate visualizations about the dataset. We've generated a histogram of each continuous feature with their respective kernel density estimate (KDE) to determine the skewness of each feature.
-
-We've also generated a correlation matrix to analyze any relationships that each pair of features might have.
-
-#figure(
-    image("./heatmap.png"),
-    caption: [Correlation Matrix of the dataset]
-)
-
-== Data Preprocessing
-
-=== Encoding
-
-Before training the model, we first have to encode any categorical features within our dataset.
-
-
-
-=== Standardization
-
-PCA is highly sensitive to the scale of the features. For continuous features, we want to standardize the data to a standard scale.
-
-=== Normal Distribution
-
-To ensure
-
-== Changes in the toolset and methods
-
-After having worked with `sklearn`, we've decided to forego the Pandas alternative, Polars in favor of Pandas since `sklearn` functions do not natively support Polars dataframe as input. Otherwise, the technology used will stay as is.
-
-After generating clusters,
-
-== Supervised Training
-
-In our proposal, we didn't specify which supervised model we were going to implement, but
-
-#place(
-    top,
-    float: true,
-    scope: "parent",
-    figure(
-        image("./mermaid-diagram-2025-10-29-152940.png"),
-        caption:[Gantt chart for the next 45 days]
-    )
-)

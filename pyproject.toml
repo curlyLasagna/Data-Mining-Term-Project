@@ -1,0 +1,15 @@
+[project]
+name = "data-mining-term-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "altair>=6.0.0",
+    "ipython>=9.7.0",
+    "marimo>=0.18.1",
+    "pandas>=2.3.3",
+    "ruff>=0.14.7",
+    "scikit-learn>=1.7.2",
+    "scikit-multilearn>=0.2.0",
+]

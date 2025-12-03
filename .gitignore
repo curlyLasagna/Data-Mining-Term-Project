@@ -8,3 +8,15 @@ devenv.local.nix
 # pre-commit
 .pre-commit-config.yaml
 .auctex-auto/refs.el
+notebook/__marimo__/
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml

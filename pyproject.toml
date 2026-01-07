@@ -9,7 +9,10 @@ dependencies = [
     "ipython>=9.7.0",
     "marimo>=0.18.1",
     "pandas>=2.3.3",
+    "pyarrow>=22.0.0",
     "ruff>=0.14.7",
     "scikit-learn>=1.7.2",
     "scikit-multilearn>=0.2.0",
+    "vegafusion>=2.0.3",
+    "vl-convert-python>=1.8.0",
 ]
